@@ -1,0 +1,15 @@
+{
+    "name": "zetta/daedalus",
+    "description": "Shortest driving distance finder",
+    "type": "project",
+    "authors": [
+        {
+            "name": "zetta",
+            "email": "zetaweb@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "silex/silex": "~2.0"
+    }
+}
