@@ -1,0 +1,49 @@
+version: "2"
+
+services:
+
+  khrysos:
+    image: mariadb:10.1.18
+    container_name: khrysos
+    hostname: "${MYSQL_HOST}"
+    restart: always
+    networks:
+      - daedalus
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./conf/fixtures.sql.gz:/docker-entrypoint-initdb.d/fixtures.sql.gz
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+
+  api:
+    build: ./api
+    container_name: daedalus
+    networks:
+      - daedalus
+    ports:
+      - "80:80"
+    depends_on:
+      - khrysos
+    restart: always
+    volumes:
+      - ./api:/app
+    environment:
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_HOST: "${MYSQL_HOST}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      GOOGLE_API_KEY: "${GOOGLE_API_KEY}"
+
+
+volumes:
+  dbdata:
+    driver: local
+
+networks:
+  daedalus:
+    driver: bridge
