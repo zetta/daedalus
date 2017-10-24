@@ -39,6 +39,11 @@ services:
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
       GOOGLE_API_KEY: "${GOOGLE_API_KEY}"
 
+  composer:
+    restart: 'no'
+    image: prooph/composer:7.1
+    volumes_from: [api]
+    working_dir: /app
 
 volumes:
   dbdata:
