@@ -13,6 +13,14 @@ docker-compose up --build  -d
 docker-compose run composer install
 ```
 
+### Testing 
+
+To run the test we can simply call
+
+```
+docker-compose run composer test
+```
+
 *Currently the containers will bind ports `80` and `3306` in the localhost.*
 
 ### Directory
