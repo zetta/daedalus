@@ -39,7 +39,6 @@ checks:
         fix_doc_comments: true
         code_rating: true
         duplication: true
-        php_code_coverage: true
 filter: {  }
 coding_style:
     php:
