@@ -20,6 +20,8 @@ build:
                 php:
                     version: 7.1
         tests: true
+tools:
+    php_code_coverage: true
 checks:
     php:
         remove_extra_empty_lines: true
@@ -37,6 +39,7 @@ checks:
         fix_doc_comments: true
         code_rating: true
         duplication: true
+        php_code_coverage: true
 filter: {  }
 coding_style:
     php:
