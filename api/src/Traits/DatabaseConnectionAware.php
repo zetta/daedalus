@@ -2,6 +2,8 @@
 
 namespace Daedalus\Traits;
 
+use Doctrine\DBAL\Connection;
+
 /**
  * Mostly used by catalog to be able to see the database connection
  */
@@ -29,7 +31,7 @@ trait DatabaseConnectionAware
      *
      * @return self
      */
-    public function setConnection($connection)
+    public function setConnection(Connection $connection)
     {
         $this->connection = $connection;
         return $this;

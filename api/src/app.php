@@ -31,7 +31,7 @@ $app['route.catalog'] = function() use ($app) {
 };
 
 // this needs to be proxied to avoid performance issues on dependecy injection
-$app['google.distance.matrix.service'] = function() use ($app) {
+$app['google.distance.matrix.service'] = function() {
     return new DistanceMatrixService(new Client(), new GuzzleMessageFactory());
 };
 
@@ -48,11 +48,11 @@ $app['path.finder.service'] = function() use ($app) {
     ;
 };
 
-$app['background.processor'] = function() use ($app) {
+$app['background.processor'] = function() {
     return new BackgroundProcessor();
 };
 
-$app['route.input.validator'] = function() use ($app) {
+$app['route.input.validator'] = function() {
     return new RouteInputValidator();
 };
 

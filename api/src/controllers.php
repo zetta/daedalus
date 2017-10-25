@@ -25,6 +25,6 @@ $app->get('/route/{token}', function($token) use ($app) {
     return new JsonResponse($route);
 });
 
-$app->error(function (\Exception $e, Request $request, $code) use ($app) {
+$app->error(function (\Exception $e, Request $request, $code) {
     return new JsonResponse(['error' => $e->getMessage()], $code);
 });

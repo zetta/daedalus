@@ -10,12 +10,12 @@ use Silex\Application;
 trait ContainerAware
 {
     /**
-     * @var Catalog
+     * @var Application
      */
     protected $container;
 
     /**
-     * @return Catalog
+     * @return Application
      */
     public function getContainer()
     {
@@ -23,7 +23,7 @@ trait ContainerAware
     }
 
     /**
-     * @param Catalog $container
+     * @param Application $container
      *
      * @return self
      */
