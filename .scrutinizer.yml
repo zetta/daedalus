@@ -1,4 +1,8 @@
 build:
+    tests:
+        before:
+            - "cd api"
+            - "composer install"
     project_setup:
         before:
             - "cd api"
