@@ -15,9 +15,9 @@ docker-compose up --build  -d
 # install dependencies into the volume
 docker-compose run composer install
 ```
-*Currently the containers will bind ports `80` and `3306` in the localhost.*
+*Currently the containers will bind ports `80` and `3306` to the localhost.*
 
-### Testing 
+### Testing
 
 To run the test we can simply call
 
@@ -27,10 +27,10 @@ docker-compose run composer test
 
 ### Considerations.
 
-This project has indeed some improvement opportunities to increase his flexibility in future, however to reduce the complexity this details has been ommited on purpose. 
- - There is no `Object` representation of the `route` `entity`. 
+This project has indeed some improvement opportunities – mostly to have increased flexibility in the future – however they have been purposely omited in order to keep reduced complexity.
+ - There is no `Object` representation of the `route` `entity`.
  - To present the `route` in the second endpoint a `Decorator` pattern could be used, however right now can be easily handled in the `RouteService`.
- - It was considered to use a `queue` system such as `RabbitMQ` to process al the `in progress` routes, however it will require a new container and also the consumer requires to be supervised which will require much more code maintenance. Right now the `async` capacity is handled by a background process fired everytime a new route is inserted. 
+ - It was considered to use a `queue` system such as `RabbitMQ` to process all the `in progress` routes, however it will require a new container and also the consumer requires to be supervised which will require much more code maintenance. Right now the `async` capacity is handled by a background process fired everytime a new route is inserted.
 
 ### Directory
 
@@ -109,7 +109,7 @@ Response example:
 ```
 
 ### Get shortest driving route
-Get shortest driving route for submitted locations (sequence of `[lat, lon]` values starting from start location resulting in shortest path)
+Get the shortest driving route for a given location (sequence of `[lat, lon]` values starting from start location resulting in shortest path).
 
 Method:
 - `GET`
