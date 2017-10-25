@@ -2,6 +2,7 @@ Daedalus
 ========
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/zetta/daedalus/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/zetta/daedalus/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/zetta/daedalus/badges/build.png?b=master)](https://scrutinizer-ci.com/g/zetta/daedalus/build-status/master)
 
 API to calculate shortest driving path and estimated driving time to visit all specified locations, starting from the first in the list.
 
