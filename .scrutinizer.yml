@@ -2,6 +2,12 @@ build:
     tests:
         before:
             - "composer install"
+        override:
+            -
+                command: 'vendor/bin/phpunit --coverage-clover=/tmp/clover-file'
+                coverage:
+                    file: '/tmp/clover-file'
+                    format: 'clover'
     project_setup:
         before:
             - "cd api"
