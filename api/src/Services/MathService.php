@@ -10,7 +10,9 @@ use \Generator;
 class MathService
 {
     /**
-     * Returns all the possible permutations of
+     * Returns all the possible permutations of the given elements
+     * @param array $elements
+     * @return Generator
      */
     public function getPermutations(array $elements) : Generator
     {
