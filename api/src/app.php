@@ -11,6 +11,7 @@ use Silex\Provider\ServiceControllerServiceProvider;
 use Silex\Provider\HttpFragmentServiceProvider;
 
 use Daedalus\Catalog\RouteCatalog;
+use Daedalus\Services\MathService;
 use Daedalus\Services\RouteService;
 use Daedalus\Services\PathFinderService;
 use Daedalus\Validator\RouteInputValidator;
@@ -44,8 +45,13 @@ $app['route.service'] = function() use ($app) {
 $app['path.finder.service'] = function() use ($app) {
     return (new PathFinderService())
         ->setContainer($app)
+        ->setMathService($app['math.service'])
         //->setDistanceMatrixService($app['google.distance.matrix.service']) lazy loaded
     ;
+};
+
+$app['math.service'] = function() {
+    return new MathService();
 };
 
 $app['background.processor'] = function() {

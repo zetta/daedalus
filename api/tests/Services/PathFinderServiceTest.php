@@ -1,6 +1,7 @@
 <?php
 
 use Daedalus\Services\PathFinderService;
+use Daedalus\Services\MathService;
 use PHPUnit\Framework\TestCase;
 use Ivory\GoogleMap\Service\Base\Distance;
 use Ivory\GoogleMap\Service\Base\Duration;
@@ -13,10 +14,13 @@ class PathFinderServiceTest extends TestCase
 {
 
     protected $service;
+    protected $mathService;
 
     public function setup()
     {
         $this->service = new PathFinderService();
+        $this->mathService = new MathService();
+        $this->service->setMathService($this->mathService);
     }
 
     public function testFindBestPath()
@@ -104,6 +108,26 @@ class PathFinderServiceTest extends TestCase
                     [[3,3], [6,6], [0,0]]
                 ],
                 [[[1,1],[3,3],[2,2], [4,4]], 5+6+5, 5+6+5]
+            ],
+            [
+                [
+                    ["22.372081", "114.107877"],
+                    ["22.284419", "114.159510"],
+                    ["22.326442", "114.167811"],
+                    ["22.326442", "114.167811"]
+                ],
+                [
+                    [[15532,1004],[9665,859],[9665,859]],
+                    [[0,0],[8335,906],[8335,906]],
+                    [[8477,941],[0,0],[0,0]],
+                    [[8477,941],[0,0],[0,0]]
+                ],
+                [[
+                    ["22.372081", "114.107877"],
+                    ["22.326442", "114.167811"],
+                    ["22.326442", "114.167811"],
+                    ["22.284419", "114.159510"]
+                ], 9665+0+8477, 859+0+941],
             ]
         ];
     }

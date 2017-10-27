@@ -26,6 +26,11 @@ class PathFinderService
     protected $distanceMatrixService;
 
     /**
+     * @var MathService
+     */
+    protected $mathService;
+
+    /**
      * @param array $route
      * @return array $path
      */
@@ -83,53 +88,49 @@ class PathFinderService
      */
     public function calculatePath(array $input, array $matrix) : array
     {
-        $path = [];
-        $steps = count($input);
-        $distance = 0;
-        $time = 0;
-
-        $path[] = $input[0];
-
-        $nextIndex = 0;
-        $ignoredIndex = [];
-        for ($i = 0; $i < $steps-1; $i++) {
-            $shortest = $this->getShortest($matrix, $nextIndex, $ignoredIndex);
-            $nextIndex = $shortest['index']+1;
-            $ignoredIndex[] = $nextIndex-1;
-
-            $distance += $shortest['values'][0];
-            $time += $shortest['values'][1];
-
-            $path[] = $input[$nextIndex];
-        }
-
-        return [$path, $distance, $time];
-    }
-
-    /**
-     * Given the reduced matrix, calculate in the position where should the driver go next
-     * @param array $matrix
-     * @param int $position
-     * @param int $ingoredIndex everytime a driver already have in his path one location we MUST ignore
-     *       the same location to be compared, as there is no reason to visit the same location again
-     * @return array in format
-     *          [values => [meters, seconds], index => bestLocationToGoNext]
-     */
-    protected function getShortest(array $matrix, int $position, array $ignoreIndex) : array
-    {
         $shortest = PHP_INT_MAX;
-        $index = null;
-        foreach($matrix[$position] as $idx => $values) {
-            if ($values[0] < $shortest && $values[0] != 0 &&
-                !in_array($idx, $ignoreIndex)) {
-                $shortest = $values[0];
-                $index = $idx;
+        $path = [];
+        $finalCosts = [];
+
+        foreach ($this->getMathService()->getPermutations(range(1, count($input)-1)) as $permutation) {
+            $permutation = array_merge([0], $permutation);
+            $costs = $this->calculateCosts($permutation, $matrix);
+            if ($costs['distance'] < $shortest) {
+                $shortest = $costs['distance'];
+                $path = $permutation;
+                $finalCosts = $costs;
             }
         }
 
+        $path = array_map(function($item) use ($input) {
+            return $input[$item];
+        }, $path);
+
+        return [$path, $finalCosts['distance'], $finalCosts['duration']];
+    }
+
+    /**
+     * Given the delivery order, sum the costs of distance and duration of the path
+     * @param array $order
+     * @param array $matrix
+     */
+    public function calculateCosts(array $order, array $matrix) : array
+    {
+        $distance = 0;
+        $duration = 0;
+        $steps = count($order)-1;
+
+        for ($i = 0; $i < $steps; $i++) {
+            $from = $order[$i];
+            $to = $order[$i+1];
+            $costs = $matrix[$from][$to-1];
+            $distance += $costs[0];
+            $duration += $costs[1];
+        }
+
         return [
-            'values' => $matrix[$position][$index],
-            'index' => $index,
+            'distance' => $distance,
+            'duration' => $duration,
         ];
     }
 
@@ -154,6 +155,26 @@ class PathFinderService
     public function setDistanceMatrixService(DistanceMatrixService $distanceMatrixService)
     {
         $this->distanceMatrixService = $distanceMatrixService;
+
+        return $this;
+    }
+
+    /**
+     * @return MathService
+     */
+    public function getMathService()
+    {
+        return $this->mathService;
+    }
+
+    /**
+     * @param MathService $mathService
+     *
+     * @return self
+     */
+    public function setMathService(MathService $mathService)
+    {
+        $this->mathService = $mathService;
 
         return $this;
     }
