@@ -2,11 +2,6 @@
 
 namespace Daedalus\Validator;
 
-use Ivory\GoogleMap\Base\Coordinate;
-use Ivory\GoogleMap\Service\DistanceMatrix\DistanceMatrixService;
-use Ivory\GoogleMap\Service\Base\Location\CoordinateLocation;
-use Ivory\GoogleMap\Service\DistanceMatrix\Request\DistanceMatrixRequest;
-
 /**
  * Useful validations for Route Inputs
  */
