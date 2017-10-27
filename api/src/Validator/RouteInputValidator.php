@@ -20,7 +20,7 @@ class RouteInputValidator
     public function isValid(string $content) : bool
     {
         $json = json_decode($content, true);
-        if (is_array($json)) {
+        if (is_array($json) && count($json) > 1) {
             foreach ($json as $row) {
                 if (!is_array($row) || count($row) != 2 || !is_numeric($row[0]) || !is_numeric($row[1]) ) {
                     return false;
