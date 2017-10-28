@@ -25,9 +25,9 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
             <exclude>
-                <file>/app/src/app.php</file>
-                <file>/app/src/console.php</file>
-                <file>/app/src/controllers.php</file>
+                <file>src/app.php</file>
+                <file>src/console.php</file>
+                <file>src/controllers.php</file>
             </exclude>
         </whitelist>
     </filter>
